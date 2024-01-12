@@ -3475,15 +3475,6 @@ init_tzdb()
     else
     {
         db->version = get_version(path);
-        auto rv = remote_version();
-        if (!rv.empty() && db->version != rv)
-        {
-            if (remote_download(rv))
-            {
-                remote_install(rv);
-                db->version = get_version(path);
-            }
-        }
     }
 #else  // !AUTO_DOWNLOAD
     if (!file_exists(install))
