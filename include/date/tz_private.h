@@ -157,7 +157,7 @@ private:
 
 public:
     Rule() = default;
-    explicit Rule(const std::string& s);
+    explicit Rule(std::string s);
     Rule(const Rule& r, date::year starting_year, date::year ending_year);
 
     const std::string& name() const {return name_;}

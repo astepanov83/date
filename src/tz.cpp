@@ -1203,10 +1203,18 @@ detail::operator<<(std::ostream& os, const MonthDayTime& x)
 
 // Rule
 
-detail::Rule::Rule(const std::string& s)
+detail::Rule::Rule(std::string s)
 {
     try
     {
+        // This is a workaround for the broken northamerica tzdata file:
+        // Rule	Mexico	1931	only	-	April	30	0:00	1:00	D
+        // Apr should have been used instead of April
+        auto badApril = "\tApril\t";
+        auto aprilPos = s.find(badApril);
+        if (aprilPos != std::string::npos)
+            s = s.substr(0, aprilPos) + "\tApr\t" + s.substr(aprilPos + strlen(badApril));
+
         using namespace date;
         using namespace std::chrono;
         std::istringstream in(s);
