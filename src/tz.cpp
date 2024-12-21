@@ -3437,11 +3437,26 @@ get_program_folder()
     return get_known_folder(FOLDERID_ProgramFiles);
 }
 
+std::string& access_unzip_program()
+{
+    static std::string unzip_program;
+    return unzip_program;
+}
+
+void set_unzip_program(const std::string& program)
+{
+    access_unzip_program() = program;
+}
+
 // Note folder can and usually does contain spaces.
 static
 std::string
 get_unzip_program()
 {
+    auto& unzip = access_unzip_program();
+    if (!unzip.empty())
+        return unzip;
+
     std::string path;
 
     // 7-Zip appears to note its location in the registry.

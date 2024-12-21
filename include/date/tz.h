@@ -1314,6 +1314,7 @@ DATE_API tzdb_list& get_tzdb_list();
 
 DATE_API const tzdb& reload_tzdb();
 DATE_API void        set_install(const std::string& install);
+DATE_API void        set_unzip_program(const std::string& program);
 
 #endif  // !USE_OS_TZDB
 
